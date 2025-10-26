@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="'Question: ' + ${question.title}">Question Detail</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:if="${question != null}" class="question-card">
+        <h2 th:text="${question.title}">Question Title</h2>
+        <p th:text="${question.content}">Question content</p>
+        <div class="question-meta">
+            <span>By: <span th:text="${question.user != null ? question.user.name : 'Unknown'}">User</span></span> |
+            <span>Category: <span th:text="${question.category != null ? question.category.name : 'Uncategorized'}">Category</span></span> |
+            <span>Posted: <span th:text="${#temporals.format(question.createdAt, 'MMM dd, yyyy HH:mm')}">Date</span></span>
+        </div>
+    </div>
+
+    <h3>Answers</h3>
+    <div th:if="${#lists.isEmpty(answers)}">
+        <p>No answers yet. Be the first to answer!</p>
+    </div>
+    <div th:each="answer : ${answers}" class="answer">
+        <p th:text="${answer.content}">Answer content</p>
+        <div class="question-meta">
+            <span>By: <span th:text="${answer.user != null ? answer.user.name : 'Unknown'}">User</span></span> |
+            <span>Posted: <span th:text="${#temporals.format(answer.createdAt, 'MMM dd, yyyy HH:mm')}">Date</span></span>
+        </div>
+    </div>
+
+    <h3>Add Your Answer</h3>
+    <form th:action="@{/questions/{id}/answers(id=${question.questionId})}" method="post" th:object="${newAnswer}">
+        <div class="form-group">
+            <label for="content">Your Answer:</label>
+            <textarea id="content" name="content" th:field="*{content}" rows="5" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="userId">Select User:</label>
+            <select id="userId" name="userId" th:field="*{user.userId}" required>
+                <option value="">Select a user</option>
+                <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.name}">User</option>
+            </select>
+        </div>
+        <button type="submit" class="btn">Submit Answer</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Users - Knowledge Base Q&A</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Registered Users</h2>
+
+    <div th:if="${#lists.isEmpty(users)}">
+        <p>No users found.</p>
+    </div>
+    <div th:each="user : ${users}" class="question-card">
+        <h4 th:text="${user.name}">User Name</h4>
+        <p>Email: <span th:text="${user.email}">user@example.com</span></p>
+        <p>Role: <span th:text="${user.role}">USER</span></p>
+        <p>Joined: <span th:text="${#temporals.format(user.joinDate, 'MMM dd, yyyy')}">Date</span></p>
+    </div>
+</div>
+</body>
+</html>

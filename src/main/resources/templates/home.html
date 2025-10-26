@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Home - Knowledge Base Q&A</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Welcome to Knowledge Base Q&A</h2>
+
+    <div style="margin-bottom: 2rem;">
+        <form action="/" method="get">
+            <input type="text" name="q" th:value="${searchQuery}" placeholder="Search questions..." style="width: 70%; padding: 0.5rem;">
+            <button type="submit" class="btn">Search</button>
+        </form>
+    </div>
+
+    <h3>Recent Questions</h3>
+    <div th:if="${#lists.isEmpty(questions)}">
+        <p>No questions found.</p>
+    </div>
+    <div th:each="question : ${questions}" class="question-card">
+        <h4 class="question-title">
+            <a th:href="@{/questions/{id}(id=${question.questionId})}" th:text="${question.title}">Question Title</a>
+        </h4>
+        <p th:text="${question.content}">Question content</p>
+        <div class="question-meta">
+            <span>By: <span th:text="${question.user != null ? question.user.name : 'Unknown'}">User</span></span> |
+            <span>Category: <span th:text="${question.category != null ? question.category.name : 'Uncategorized'}">Category</span></span> |
+            <span>Posted: <span th:text="${#temporals.format(question.createdAt, 'MMM dd, yyyy')}">Date</span></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

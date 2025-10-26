@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>User Registration - Knowledge Base Q&A</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>User Registration</h2>
+
+    <form action="/register" method="post" th:object="${user}">
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" th:field="*{name}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" th:field="*{email}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="role">Role:</label>
+            <select id="role" name="role" th:field="*{role}" required>
+                <option value="USER">Regular User</option>
+                <option value="ADMIN">Administrator</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="/users">View all users</a></p>
+</div>
+</body>
+</html>

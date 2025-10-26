@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Ask a Question - Knowledge Base Q&A</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Ask a New Question</h2>
+
+    <form action="/questions" method="post" th:object="${question}">
+        <div class="form-group">
+            <label for="title">Question Title:</label>
+            <input type="text" id="title" name="title" th:field="*{title}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Question Details:</label>
+            <textarea id="content" name="content" th:field="*{content}" rows="5" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="categoryId">Category:</label>
+            <select id="categoryId" name="categoryId" th:field="*{category.categoryId}" required>
+                <option value="">Select a category</option>
+                <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.name + ' - ' + category.description}">Category</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="userId">Posted by:</label>
+            <select id="userId" name="userId" th:field="*{user.userId}" required>
+                <option value="">Select a user</option>
+                <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.name + ' (' + user.email + ')'}">User</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn">Submit Question</button>
+    </form>
+</div>
+</body>
+</html>

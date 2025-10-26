@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Base Q&A</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="header">
+        <h1>Knowledge Base Q&A System</h1>
+    </div>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/questions">Questions</a>
+        <a href="/questions/add">Ask Question</a>
+        <a href="/categories">Categories</a>
+        <a href="/register">Register</a>
+        <a href="/users">Users</a>
+    </div>
+    <div class="container" layout:fragment="content">
+        <!-- Content will be inserted here -->
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 Knowledge Base Q&A System</p>
+    </div>
+</body>
+</html>
