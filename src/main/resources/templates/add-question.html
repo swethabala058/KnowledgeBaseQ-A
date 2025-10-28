@@ -3,9 +3,10 @@
       layout:decorate="~{layout}">
 <head>
     <title>Ask a Question - Knowledge Base Q&A</title>
+    <link rel="stylesheet" th:href="@{/css/add-question.css}">
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" class="container">
     <h2>Ask a New Question</h2>
 
     <form action="/questions" method="post" th:object="${question}">
@@ -27,15 +28,11 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="userId">Posted by:</label>
-            <select id="userId" name="userId" th:field="*{user.userId}" required>
-                <option value="">Select a user</option>
-                <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.name + ' (' + user.email + ')'}">User</option>
-            </select>
-        </div>
+        <!-- User selection removed - will be handled by authentication system -->
 
-        <button type="submit" class="btn">Submit Question</button>
+        <div style="text-align: center; margin-top: 2rem;">
+            <button type="submit" class="btn">Submit Question</button>
+        </div>
     </form>
 </div>
 </body>

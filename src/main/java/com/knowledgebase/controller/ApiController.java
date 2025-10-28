@@ -118,7 +118,7 @@ public class ApiController {
     @GetMapping("/questions/{questionId}/answers")
     public ResponseEntity<List<Answer>> getAnswersForQuestion(@PathVariable Long questionId) {
         if (questionRepository.existsById(questionId)) {
-            List<Answer> answers = answerRepository.findByQuestionQuestionId(questionId);
+            List<Answer> answers = answerRepository.findByQuestion_QuestionId(questionId);
             return ResponseEntity.ok(answers);
         }
         return ResponseEntity.notFound().build();
@@ -155,9 +155,9 @@ public class ApiController {
         if (keyword != null && !keyword.isBlank()) {
             return questionRepository.findByTitleContainingIgnoreCase(keyword);
         } else if (categoryId != null) {
-            return questionRepository.findByCategoryCategoryId(categoryId);
+            return questionRepository.findByCategory_CategoryId(categoryId);
         } else if (userId != null) {
-            return questionRepository.findByUserUserId(userId);
+            return questionRepository.findByUser_UserId(userId);
         }
         return questionRepository.findAll();
     }

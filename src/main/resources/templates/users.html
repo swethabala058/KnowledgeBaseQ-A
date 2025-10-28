@@ -3,6 +3,7 @@
       layout:decorate="~{layout}">
 <head>
     <title>Users - Knowledge Base Q&A</title>
+    <link rel="stylesheet" th:href="@{/css/users.css}">
 </head>
 <body>
 <div layout:fragment="content">
@@ -16,6 +17,9 @@
         <p>Email: <span th:text="${user.email}">user@example.com</span></p>
         <p>Role: <span th:text="${user.role}">USER</span></p>
         <p>Joined: <span th:text="${#temporals.format(user.joinDate, 'MMM dd, yyyy')}">Date</span></p>
+            <div style="margin-top: 1rem;">
+                <a th:href="@{/questions?user={id}(id=${user.userId})}" class="btn">View Questions</a>
+            </div>
     </div>
 </div>
 </body>

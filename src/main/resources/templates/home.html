@@ -3,33 +3,79 @@
       layout:decorate="~{layout}">
 <head>
     <title>Home - Knowledge Base Q&A</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
 <div layout:fragment="content">
-    <h2>Welcome to Knowledge Base Q&A</h2>
+    <div class="hero-section">
+        <h1>Welcome to Knowledge Base Q&A</h1>
+        <p class="hero-text">A community-driven platform for sharing knowledge and finding answers to your questions.</p>
+    </div>
 
-    <div style="margin-bottom: 2rem;">
-        <form action="/" method="get">
-            <input type="text" name="q" th:value="${searchQuery}" placeholder="Search questions..." style="width: 70%; padding: 0.5rem;">
-            <button type="submit" class="btn">Search</button>
+    <!-- Stats Dashboard -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number" th:text="${totalQuestions}">0</div>
+            <div class="stat-label">Total Questions</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" th:text="${totalCategories}">0</div>
+            <div class="stat-label">Categories</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" th:text="${totalUsers}">0</div>
+            <div class="stat-label">Active Users</div>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <form action="/" method="get" class="search-form">
+            <input type="text" name="q" th:value="${searchQuery}" placeholder="Search questions..." class="search-input">
+            <button type="submit" class="btn btn-search">Search</button>
         </form>
     </div>
 
-    <h3>Recent Questions</h3>
-    <div th:if="${#lists.isEmpty(questions)}">
-        <p>No questions found.</p>
-    </div>
-    <div th:each="question : ${questions}" class="question-card">
-        <h4 class="question-title">
-            <a th:href="@{/questions/{id}(id=${question.questionId})}" th:text="${question.title}">Question Title</a>
-        </h4>
-        <p th:text="${question.content}">Question content</p>
-        <div class="question-meta">
-            <span>By: <span th:text="${question.user != null ? question.user.name : 'Unknown'}">User</span></span> |
-            <span>Category: <span th:text="${question.category != null ? question.category.name : 'Uncategorized'}">Category</span></span> |
-            <span>Posted: <span th:text="${#temporals.format(question.createdAt, 'MMM dd, yyyy')}">Date</span></span>
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <h3>Quick Actions</h3>
+        <div class="action-buttons">
+            <a th:href="@{/questions/add}" class="action-btn">
+                <i class="icon-question"></i>
+                <span>Ask Question</span>
+            </a>
+            <a th:href="@{/register}" class="action-btn">
+                <i class="icon-user"></i>
+                <span>Register</span>
+            </a>
+            <a th:href="@{/categories}" class="action-btn">
+                <i class="icon-category"></i>
+                <span>Browse Categories</span>
+            </a>
+            <a th:href="@{/users}" class="action-btn">
+                <i class="icon-users"></i>
+                <span>View Users</span>
+            </a>
         </div>
     </div>
+
+
+
+    <!-- Featured Categories -->
+    <div class="featured-categories">
+        <div class="section-header">
+            <h3>Popular Categories</h3>
+            <a th:href="@{/categories}" class="view-all">View All</a>
+        </div>
+        <div class="categories-grid">
+            <div th:each="category : ${categories}" class="category-card">
+                <h4 th:text="${category.name}">Category Name</h4>
+                <p th:text="${category.description}">Category description</p>
+                <a th:href="@{/questions?category={id}(id=${category.categoryId})}" class="btn btn-sm">View Questions</a>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

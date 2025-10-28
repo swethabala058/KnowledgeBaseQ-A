@@ -1,0 +1,74 @@
+/* Users page styles */
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.user-card {
+  border: none;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+}
+
+.user-name {
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.question-card p { margin: 0.25rem 0; }
+
+.btn {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-grid {
+    grid-template-columns: 1fr;
+  }
+  .user-card {
+    padding: 1rem;
+  }
+  .user-name {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-card {
+    padding: 0.75rem;
+  }
+  .user-name {
+    font-size: 1.1rem;
+  }
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}

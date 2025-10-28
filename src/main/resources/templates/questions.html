@@ -3,14 +3,15 @@
       layout:decorate="~{layout}">
 <head>
     <title>Questions - Knowledge Base Q&A</title>
+    <link rel="stylesheet" th:href="@{/css/questions.css}">
 </head>
 <body>
 <div layout:fragment="content">
     <h2>All Questions</h2>
 
-    <div style="margin-bottom: 2rem;">
-        <form action="/questions" method="get">
-            <input type="text" name="q" th:value="${searchQuery}" placeholder="Search questions..." style="width: 70%; padding: 0.5rem;">
+    <div class="search-container">
+        <form action="/questions" method="get" class="search-form">
+            <input type="text" name="q" th:value="${searchQuery}" placeholder="Search questions..." class="search-input">
             <button type="submit" class="btn">Search</button>
         </form>
     </div>
@@ -27,6 +28,9 @@
             <span>By: <span th:text="${question.user != null ? question.user.name : 'Unknown'}">User</span></span> |
             <span>Category: <span th:text="${question.category != null ? question.category.name : 'Uncategorized'}">Category</span></span> |
             <span>Posted: <span th:text="${#temporals.format(question.createdAt, 'MMM dd, yyyy')}">Date</span></span>
+        </div>
+        <div style="margin-top: 1rem;">
+            <a th:href="@{/questions/{id}(id=${question.questionId})}" class="btn">View Details</a>
         </div>
     </div>
 </div>

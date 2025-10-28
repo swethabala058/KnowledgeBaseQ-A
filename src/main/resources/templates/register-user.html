@@ -3,6 +3,7 @@
       layout:decorate="~{layout}">
 <head>
     <title>User Registration - Knowledge Base Q&A</title>
+    <link rel="stylesheet" th:href="@{/css/register-user.css}">
 </head>
 <body>
 <div layout:fragment="content">
@@ -27,7 +28,9 @@
             </select>
         </div>
 
-        <button type="submit" class="btn">Register</button>
+        <div style="text-align: center; margin-top: 2rem;">
+            <button type="submit" class="btn">Register</button>
+        </div>
     </form>
 
     <p>Already have an account? <a href="/users">View all users</a></p>

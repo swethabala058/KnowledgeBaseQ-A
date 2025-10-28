@@ -35,27 +35,36 @@ public class WebController {
 
     @GetMapping("/")
     public String home(Model model, @RequestParam(value = "q", required = false) String q) {
-        List<Question> questions;
-        if (q != null && !q.isBlank()) {
-            questions = questionRepository.findByTitleContainingIgnoreCase(q);
-        } else {
-            questions = questionRepository.findAll();
+        // Load a few categories for featured section
+        List<Category> featuredCategories = categoryRepository.findAll();
+        if (featuredCategories.size() > 6) {
+            featuredCategories = featuredCategories.subList(0, 6);
         }
-        model.addAttribute("questions", questions);
+
+        // Add stats
+        model.addAttribute("totalQuestions", questionRepository.count());
+        model.addAttribute("totalCategories", categoryRepository.count());
+        model.addAttribute("totalUsers", userRepository.count());
+
+        model.addAttribute("categories", featuredCategories);
         model.addAttribute("searchQuery", q);
         return "home";
     }
 
     @GetMapping("/questions")
-    public String listQuestions(Model model, @RequestParam(value = "q", required = false) String q) {
+    public String listQuestions(Model model, @RequestParam(value = "q", required = false) String q,
+                               @RequestParam(value = "category", required = false) Long categoryId) {
         List<Question> questions;
-        if (q != null && !q.isBlank()) {
+        if (categoryId != null) {
+            questions = questionRepository.findByCategory_CategoryId(categoryId);
+        } else if (q != null && !q.isBlank()) {
             questions = questionRepository.findByTitleContainingIgnoreCase(q);
         } else {
             questions = questionRepository.findAll();
         }
         model.addAttribute("questions", questions);
         model.addAttribute("searchQuery", q);
+        model.addAttribute("selectedCategory", categoryId);
         return "questions";
     }
 
@@ -65,11 +74,11 @@ public class WebController {
         if (question == null) {
             return "redirect:/";
         }
-        List<Answer> answers = answerRepository.findByQuestionQuestionId(id);
+        List<Answer> answers = answerRepository.findByQuestion_QuestionId(id);
         model.addAttribute("question", question);
         model.addAttribute("answers", answers);
         model.addAttribute("newAnswer", new Answer());
-        model.addAttribute("users", userRepository.findAll());
+        // Removed users list - will be handled by authentication
         return "question-detail";
     }
 
@@ -77,7 +86,7 @@ public class WebController {
     public String addQuestionForm(Model model) {
         model.addAttribute("question", new Question());
         model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("users", userRepository.findAll());
+        // Removed users list - will be handled by authentication
         return "add-question";
     }
 

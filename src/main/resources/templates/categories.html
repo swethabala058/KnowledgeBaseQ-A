@@ -3,6 +3,7 @@
       layout:decorate="~{layout}">
 <head>
     <title>Categories - Knowledge Base Q&A</title>
+    <link rel="stylesheet" th:href="@{/css/categories.css}">
 </head>
 <body>
 <div layout:fragment="content">
@@ -14,6 +15,9 @@
     <div th:each="category : ${categories}" class="question-card">
         <h4 th:text="${category.name}">Category Name</h4>
         <p th:text="${category.description}">Category description</p>
+            <div style="margin-top: 1rem;">
+                <a th:href="@{/questions?category={id}(id=${category.categoryId})}" class="btn">View Questions</a>
+            </div>
     </div>
 </div>
 </body>

@@ -3,6 +3,7 @@
       layout:decorate="~{layout}">
 <head>
     <title th:text="'Question: ' + ${question.title}">Question Detail</title>
+    <link rel="stylesheet" th:href="@{/css/question-detail.css}">
 </head>
 <body>
 <div layout:fragment="content">
@@ -34,14 +35,10 @@
             <label for="content">Your Answer:</label>
             <textarea id="content" name="content" th:field="*{content}" rows="5" required></textarea>
         </div>
-        <div class="form-group">
-            <label for="userId">Select User:</label>
-            <select id="userId" name="userId" th:field="*{user.userId}" required>
-                <option value="">Select a user</option>
-                <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.name}">User</option>
-            </select>
+        <!-- User selection removed - will be handled by authentication system -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <button type="submit" class="btn">Submit Answer</button>
         </div>
-        <button type="submit" class="btn">Submit Answer</button>
     </form>
 </div>
 </body>

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findByTitleContainingIgnoreCase(String keyword);
-    List<Question> findByCategoryCategoryId(Long categoryId);
-    List<Question> findByUserUserId(Long userId);
+    List<Question> findByCategory_CategoryId(Long categoryId);
+    List<Question> findByUser_UserId(Long userId);
 }
